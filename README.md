@@ -225,12 +225,7 @@ Add screenshots of
 
 Aspiring Data Analyst & AI/ML Developer
 
-GitHub
-
-https://github.com/Pareshprajapati-777
-
-LinkedIn
-
+LinkedIn :
 https://linkedin.com/in/pareshprajapati-co
 
 ---
