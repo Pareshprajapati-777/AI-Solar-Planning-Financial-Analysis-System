@@ -2,7 +2,7 @@
 
 An AI-powered Solar Planning & Financial Analysis platform built using **Python, Streamlit, Machine Learning, Plotly, and Scikit-Learn**.
 
-The application helps users estimate solar power generation, design new solar plants, calculate project cost, government subsidy, ROI, electricity savings, environmental impact, and generate professional reports.srd
+The application helps users estimate solar power generation, design new solar plants, calculate project cost, government subsidy, ROI, electricity savings, environmental impact, and generate professional reports.
 
 ---
 
