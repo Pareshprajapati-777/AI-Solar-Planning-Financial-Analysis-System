@@ -5,7 +5,7 @@ An AI-powered Solar Planning & Financial Analysis platform built using **Python,
 The application helps users estimate solar power generation, design new solar plants, calculate project cost, government subsidy, ROI, electricity savings, environmental impact, and generate professional reports.
 
 ---
-------------
+-
 # 🚀 Features
 
 ## 📊 Enterprise Dashboard
