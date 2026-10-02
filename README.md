@@ -6,6 +6,12 @@ The application helps users estimate solar power generation, design new solar pl
 
 ---
 
+## 🌐 Live Demo
+
+🚀 **Try the live application:** https://ai-solar-planning-financial-analysi.vercel.app/
+
+---
+
 # 🚀 Features
 
 ## 📊 Enterprise Dashboard
