@@ -229,10 +229,16 @@ custom_css = """
         color: #38bdf8 !important;
     }
 
-    /* Sidebar tweaks */
-    [data-testid="stSidebar"] {
-        background-color: #0b1120;
-        border-right: 1px solid rgba(255, 255, 255, 0.06);
+    /* Completely hide sidebar and collapse toggle button for clean full-width experience */
+    [data-testid="stSidebar"],
+    section[data-testid="stSidebar"],
+    [data-testid="collapsedControl"],
+    button[data-testid="stSidebarCollapseButton"] {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     /* ======================================================= */
@@ -499,55 +505,6 @@ else:
     sco, mae, rmse = 0.954, 36.9, 100.2
 
 
-# ---------------- SIDEBAR NAVIGATION & SYSTEM STATUS ----------------
-with st.sidebar:
-    st.markdown("### ☀️ Solar AI Intelligence")
-    st.markdown(
-        """
-        <div style="padding:12px; border-radius:12px; background:rgba(30,41,59,0.7); border:1px solid rgba(99,102,241,0.25); margin-bottom:15px;">
-            <div style="font-size:12px; font-weight:700; color:#38bdf8; text-transform:uppercase; letter-spacing:0.5px;">SYSTEM STATUS</div>
-            <div style="display:flex; align-items:center; gap:8px; margin-top:6px; font-weight:600; color:#34d399; font-size:14px;">
-                <span class="badge-live-dot"></span> Live • 0s Cold Start
-            </div>
-            <div style="font-size:12px; color:#94a3b8; margin-top:4px;">Model Engine: Decision Tree Regressor</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown("#### ⚡ Performance Metrics")
-    sb_col1, sb_col2 = st.columns(2)
-    sb_col1.metric("R² Accuracy", f"{sco*100:.1f}%")
-    sb_col2.metric("MAE Error", f"{mae:.1f} kW")
-
-    st.markdown("---")
-    st.markdown("#### 💡 Quick Scenario Presets")
-    st.caption("Auto-fills optimal parameters in the planning tabs.")
-
-    if st.button("🏠 Residential 3 kW Setup", use_container_width=True):
-        st.session_state['preset_roof'] = 300
-        st.session_state['preset_bill'] = 3500
-        st.session_state['preset_units'] = 360
-        st.info("Loaded 3 kW Residential parameters! Switch to 'Prediction Hub' tab.")
-
-    if st.button("🏭 Commercial 50 kW Setup", use_container_width=True):
-        st.session_state['preset_roof'] = 5000
-        st.session_state['preset_bill'] = 65000
-        st.session_state['preset_units'] = 6000
-        st.info("Loaded 50 kW Commercial parameters! Switch to 'Prediction Hub' tab.")
-
-    st.markdown("---")
-    st.markdown(
-        """
-        <div style="font-size:12px; color:#64748b; line-height:1.6;">
-            <strong>AI Solar Planning System v2.0</strong><br>
-            Dataset: April–July 2020 Solar Farm<br>
-            Engine: Python • Scikit-Learn • Streamlit<br>
-            <a href="https://github.com/Pareshprajapati-777/AI-Solar-Planning-Financial-Analysis-System" target="_blank" style="color:#818cf8; text-decoration:none;">🔗 GitHub Repository</a>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
 
 
 # ---------------- MAIN HERO HEADER ----------------
@@ -826,6 +783,28 @@ with tab3:
         default_roof = st.session_state.get('preset_roof', 1500)
         default_bill = st.session_state.get('preset_bill', 5000)
         default_units = st.session_state.get('preset_units', 300)
+
+        # Smart 1-Click Scenario Presets
+        st.markdown("##### ⚡ 1-Click Quick Presets")
+        p_c1, p_c2, p_c3 = st.columns(3)
+        with p_c1:
+            if st.button("🏠 1-2 BHK (2 kW)", use_container_width=True, key="p_res_2kw"):
+                st.session_state['preset_roof'] = 200
+                st.session_state['preset_bill'] = 2200
+                st.session_state['preset_units'] = 200
+                st.rerun()
+        with p_c2:
+            if st.button("🏡 3 BHK Standard (3 kW)", use_container_width=True, key="p_res_3kw"):
+                st.session_state['preset_roof'] = 350
+                st.session_state['preset_bill'] = 4500
+                st.session_state['preset_units'] = 360
+                st.rerun()
+        with p_c3:
+            if st.button("🏰 Villa / Bungalow (5 kW)", use_container_width=True, key="p_res_5kw"):
+                st.session_state['preset_roof'] = 600
+                st.session_state['preset_bill'] = 8000
+                st.session_state['preset_units'] = 650
+                st.rerun()
 
         with st.expander("⚙️ Enter Residential Parameters", expanded=True):
             c1, c2 = st.columns(2)
@@ -1146,6 +1125,35 @@ with tab3:
         st.markdown("### 🏭 Commercial & Industrial Solar Plant Sizing")
         st.caption("Mega-scale solar capacity simulation, CAPEX/OPEX modeling, transformer sizing, and 25-year financial ledger.")
 
+        default_com_area = float(st.session_state.get('com_area_val', 5000.0))
+        default_com_units = int(st.session_state.get('com_units_val', 25000))
+        default_com_bill = int(st.session_state.get('com_bill_val', 210000))
+        default_com_budget = int(st.session_state.get('com_budget_val', 15000000))
+
+        st.markdown("##### ⚡ 1-Click Facility Presets")
+        cp_c1, cp_c2, cp_c3 = st.columns(3)
+        with cp_c1:
+            if st.button("🏢 Commercial Office (25 kW)", use_container_width=True, key="p_com_25"):
+                st.session_state['com_area_val'] = 3500.0
+                st.session_state['com_units_val'] = 3000
+                st.session_state['com_bill_val'] = 27000
+                st.session_state['com_budget_val'] = 1500000
+                st.rerun()
+        with cp_c2:
+            if st.button("🏭 Small Factory (50 kW)", use_container_width=True, key="p_com_50"):
+                st.session_state['com_area_val'] = 6500.0
+                st.session_state['com_units_val'] = 6500
+                st.session_state['com_bill_val'] = 58000
+                st.session_state['com_budget_val'] = 3000000
+                st.rerun()
+        with cp_c3:
+            if st.button("🏗️ Industrial Park (200 kW)", use_container_width=True, key="p_com_200"):
+                st.session_state['com_area_val'] = 26000.0
+                st.session_state['com_units_val'] = 25000
+                st.session_state['com_bill_val'] = 220000
+                st.session_state['com_budget_val'] = 12000000
+                st.rerun()
+
         with st.expander("⚙️ Commercial Facility Parameters", expanded=True):
             n_c1, n_c2, n_c3 = st.columns(3)
             with n_c1:
@@ -1158,7 +1166,7 @@ with tab3:
                 land_area_input = st.number_input(
                     f"Available Area ({land_unit})",
                     min_value=1.0,
-                    value=1.0 if land_unit == "Acres" else 5000.0,
+                    value=1.0 if land_unit == "Acres" else default_com_area,
                     step=0.5 if land_unit == "Acres" else 100.0,
                     key="com_land_area"
                 )
@@ -1169,14 +1177,14 @@ with tab3:
                     "Monthly Consumption (kWh)",
                     min_value=500,
                     max_value=2000000,
-                    value=25000,
+                    value=default_com_units,
                     key="com_units"
                 )
                 monthly_bill_new = st.number_input(
                     "Monthly Electricity Bill (₹)",
                     min_value=5000,
                     max_value=20000000,
-                    value=210000,
+                    value=default_com_bill,
                     key="com_bill"
                 )
             with n_c3:
@@ -1184,7 +1192,7 @@ with tab3:
                     "Available Budget (₹)",
                     min_value=100000,
                     max_value=500000000,
-                    value=15000000,
+                    value=default_com_budget,
                     step=100000,
                     key="com_budget"
                 )
