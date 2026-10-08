@@ -18,7 +18,7 @@ st.set_page_config(
     page_title="AI Solar Planning & Financial System",
     page_icon="☀️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # ---------------- ULTRA-MODERN STYLING (CSS) ----------------
@@ -116,12 +116,14 @@ custom_css = """
         color: white;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         border: 1px solid rgba(99, 102, 241, 0.2);
-        height: 125px;
+        min-height: 110px;
+        height: auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        word-break: break-word;
     }
     .animated-card:hover {
         transform: translateY(-4px);
@@ -184,6 +186,7 @@ custom_css = """
         font-weight: 700;
         font-size: 0.95rem;
         padding: 11px 24px;
+        min-height: 44px;
         box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
         transition: all 0.25s ease;
     }
@@ -199,6 +202,7 @@ custom_css = """
         border-radius: 10px;
         font-weight: 700;
         padding: 10px 22px;
+        min-height: 44px;
         box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
         transition: all 0.2s ease;
     }
@@ -229,6 +233,154 @@ custom_css = """
     [data-testid="stSidebar"] {
         background-color: #0b1120;
         border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* ======================================================= */
+    /* MOBILE-FIRST RESPONSIVE OPTIMIZATIONS (Smart Phone UX) */
+    /* ======================================================= */
+    @media (max-width: 768px) {
+        /* Optimize block padding on small screens */
+        .main .block-container {
+            padding: 1rem 0.6rem 2rem 0.6rem !important;
+            max-width: 100% !important;
+        }
+
+        /* Hero Header on mobile */
+        .main-hero-header {
+            padding: 18px 12px !important;
+            border-radius: 14px !important;
+            margin-bottom: 14px !important;
+        }
+        .main-hero-header h1 {
+            font-size: 1.35rem !important;
+            line-height: 1.25 !important;
+            letter-spacing: -0.3px !important;
+        }
+        .main-hero-header p {
+            font-size: 0.82rem !important;
+            margin-top: 6px !important;
+            margin-bottom: 8px !important;
+        }
+        .badge-live {
+            font-size: 10.5px !important;
+            padding: 3px 10px !important;
+        }
+
+        /* Tab Header on mobile */
+        .tab-header {
+            padding: 12px 12px !important;
+            border-radius: 10px !important;
+            margin-bottom: 14px !important;
+        }
+        .tab-header h2 {
+            font-size: 1.15rem !important;
+        }
+        .tab-header p {
+            font-size: 0.8rem !important;
+        }
+
+        /* Touch-friendly horizontal swipeable tabs */
+        div.stTabs > div[data-baseweb="tab-list"] {
+            display: flex !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            flex-wrap: nowrap !important;
+            -webkit-overflow-scrolling: touch !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            padding: 4px !important;
+            gap: 6px !important;
+            border-radius: 12px !important;
+        }
+        div.stTabs > div[data-baseweb="tab-list"]::-webkit-scrollbar {
+            display: none !important;
+        }
+        div.stTabs > div[data-baseweb="tab-list"] button[data-baseweb="tab"] {
+            white-space: nowrap !important;
+            padding: 8px 14px !important;
+            font-size: 13px !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Responsive KPI Cards: Elegant 2x2 Grid on Mobile */
+        .animated-card {
+            min-height: 96px !important;
+            height: auto !important;
+            padding: 10px 8px !important;
+            border-radius: 12px !important;
+        }
+        .card-icon {
+            font-size: 20px !important;
+            margin-bottom: 2px !important;
+        }
+        .metric-value {
+            font-size: 17px !important;
+            line-height: 1.2 !important;
+        }
+        .metric-label {
+            font-size: 9.5px !important;
+            letter-spacing: 0.4px !important;
+            margin-top: 2px !important;
+        }
+
+        /* Align 4-column blocks into 2x2 grid on phone */
+        div[data-testid="stHorizontalBlock"]:has(.animated-card) {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+        }
+        div[data-testid="stHorizontalBlock"]:has(.animated-card) > div[data-testid="column"] {
+            flex: 1 1 calc(50% - 6px) !important;
+            min-width: calc(50% - 6px) !important;
+            max-width: calc(50% - 6px) !important;
+            padding: 0 !important;
+            margin-bottom: 2px !important;
+        }
+
+        /* Form input blocks stack vertically into clean full-width */
+        div[data-testid="stHorizontalBlock"]:not(:has(.animated-card)) {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+        div[data-testid="stHorizontalBlock"]:not(:has(.animated-card)) > div[data-testid="column"] {
+            flex: 1 1 100% !important;
+            min-width: 100% !important;
+            width: 100% !important;
+            padding: 0 !important;
+        }
+
+        /* Touch friendly full-width buttons */
+        .stButton > button, .stDownloadButton > button {
+            width: 100% !important;
+            min-height: 48px !important;
+            font-size: 15px !important;
+            padding: 12px 14px !important;
+            border-radius: 10px !important;
+        }
+
+        /* Prevent iOS Safari zooming when tapping inputs */
+        input, select, textarea, div[data-baseweb="select"] input {
+            font-size: 16px !important;
+        }
+
+        /* Mobile metric widgets */
+        [data-testid="stMetricValue"] {
+            font-size: 1.3rem !important;
+        }
+        [data-testid="stMetricLabel"] {
+            font-size: 0.75rem !important;
+        }
+
+        /* Charts & Tables */
+        .js-plotly-plot, .plot-container {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        div[data-testid="stDataFrame"] {
+            width: 100% !important;
+            overflow-x: auto !important;
+        }
     }
 </style>
 """
@@ -574,6 +726,8 @@ with tab2:
         unsafe_allow_html=True
     )
 
+    CHART_CONFIG = {'responsive': True, 'displayModeBar': False}
+
     if hourly_agg is not None and monthly_agg is not None:
         col_chart1, col_chart2 = st.columns(2)
         with col_chart1:
@@ -596,7 +750,7 @@ with tab2:
                 xaxis=dict(gridcolor='rgba(255,255,255,0.06)', dtick=2),
                 yaxis=dict(gridcolor='rgba(255,255,255,0.06)', title="DC Power (kW)")
             )
-            st.plotly_chart(fig_hour, use_container_width=True)
+            st.plotly_chart(fig_hour, use_container_width=True, config=CHART_CONFIG)
 
         with col_chart2:
             st.subheader("📅 Monthly Generation Distribution")
@@ -613,7 +767,7 @@ with tab2:
                 margin=dict(l=20, r=20, t=30, b=20),
                 legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5)
             )
-            st.plotly_chart(fig_month, use_container_width=True)
+            st.plotly_chart(fig_month, use_container_width=True, config=CHART_CONFIG)
 
         st.markdown("---")
         st.subheader("☀️ Solar Irradiance vs DC Power Output")
@@ -639,7 +793,7 @@ with tab2:
                 xaxis=dict(gridcolor='rgba(255,255,255,0.06)'),
                 yaxis=dict(gridcolor='rgba(255,255,255,0.06)')
             )
-            st.plotly_chart(fig_scatter, use_container_width=True)
+            st.plotly_chart(fig_scatter, use_container_width=True, config=CHART_CONFIG)
     else:
         st.info("Load data to view analytics.")
 
@@ -795,7 +949,7 @@ with tab3:
                 margin=dict(l=20, r=20, t=40, b=20),
                 title="Monthly Financial Savings Profile"
             )
-            st.plotly_chart(fig_profit, use_container_width=True)
+            st.plotly_chart(fig_profit, use_container_width=True, config=CHART_CONFIG)
 
             # Robust PDF Generation
             def build_home_pdf():
@@ -959,7 +1113,7 @@ with tab3:
                 height=240,
                 margin=dict(l=20, r=20, t=30, b=20)
             )
-            st.plotly_chart(gauge_fig, use_container_width=True)
+            st.plotly_chart(gauge_fig, use_container_width=True, config=CHART_CONFIG)
 
             # Diagnostic insights
             ins_c1, ins_c2 = st.columns(2)
@@ -1156,7 +1310,7 @@ with tab3:
                     margin=dict(l=10, r=10, t=20, b=10),
                     title="Cost Distribution"
                 )
-                st.plotly_chart(fig_cost, use_container_width=True)
+                st.plotly_chart(fig_cost, use_container_width=True, config=CHART_CONFIG)
 
             with col_fin:
                 st.markdown("#### 📊 Project Financial Returns")
