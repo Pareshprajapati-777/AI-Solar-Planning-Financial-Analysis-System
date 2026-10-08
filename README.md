@@ -81,15 +81,3 @@ streamlit run app.py
 The application will launch immediately at `http://localhost:8501`.
 
 ---
-
-## 🌐 Deploy Live on Streamlit Community Cloud (Free)
-
-1. Fork or push this repository to your GitHub account.
-2. Sign in to [Streamlit Community Cloud](https://share.streamlit.io/).
-3. Click **"New app"**.
-4. Select your repository: `Pareshprajapati-777/AI-Solar-Planning-Financial-Analysis-System`
-5. Branch: `main`
-6. Main file path: `app.py` (or `ML_Solar.py`)
-7. Click **"Deploy"**!
-
-Your app will be live and fast in seconds with zero startup bottleneck!
